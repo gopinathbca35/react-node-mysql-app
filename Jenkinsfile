@@ -9,7 +9,7 @@ pipeline {
 
         stage('Clone Code') {
             steps {
-                git branch: 'main', url: 'https://github.com/Learn-It-Right-Way/lirw-react-node-mysql-app.git'
+                git branch: 'main', credentialsId: 'Git-cred', url: 'https://github.com/gopinathbca35/react-node-mysql-app.git'
             }
         }
 
