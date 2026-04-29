@@ -19,6 +19,11 @@ services:
       - mysql
     ports:
       - "3200:3200"
+    environment:
+      DB_HOST: mysql
+      DB_USER: root
+      DB_PASSWORD: root123
+      DB_NAME: booksdb
 
   frontend:
     build: ./frontend
