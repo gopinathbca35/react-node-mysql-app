@@ -9,6 +9,7 @@ services:
       MYSQL_DATABASE: booksdb
     ports:
       - "3306:3306"
+    command: --bind-address=0.0.0.0
 
   backend:
     build: ./backend
