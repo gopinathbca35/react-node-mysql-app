@@ -9,33 +9,21 @@ services:
       MYSQL_DATABASE: booksdb
     ports:
       - "3306:3306"
-    volumes:
-      - mysql_data:/var/lib/mysql
 
   backend:
-    build:
-      context: ./backend
+    build: ./backend
     container_name: backend-app
     restart: always
     depends_on:
       - mysql
     ports:
       - "3200:3200"
-    environment:
-      DB_HOST: mysql
-      DB_USER: root
-      DB_PASSWORD: root123
-      DB_NAME: booksdb
 
   frontend:
-    build:
-      context: ./frontend
+    build: ./frontend
     container_name: frontend-app
     restart: always
     depends_on:
       - backend
     ports:
       - "80:3000"
-
-volumes:
-  mysql_data:
