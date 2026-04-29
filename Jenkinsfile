@@ -34,7 +34,7 @@ pipeline {
                     docker --version
                     docker compose version
                     rm -rf app
-                    git clone https://github.com/saravanakumar4247/lirw-react-node-mysql-app.git app
+                    git clone https://github.com/gopinathbca35/react-node-mysql-app.git app
                     cd app
                     docker compose down || true
                     docker compose up -d --build
