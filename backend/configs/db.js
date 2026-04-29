@@ -1,11 +1,19 @@
 const mysql = require('mysql2');
 
 const db = mysql.createConnection({
-   host: 'localhost',
+   host: 'mysql-db',
    port: '3306',
    user: 'root',
-   password: '12345678',
-   database: 'react_node_app'
+   password: 'root123',
+   database: 'booksdb'
+});
+
+db.connect((err) => {
+   if (err) {
+      console.error('Error connecting to MySQL:', err);
+   } else {
+      console.log('Connected to MySQL');
+   }
 });
 
 module.exports = db;
