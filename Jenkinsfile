@@ -25,14 +25,11 @@ pipeline {
             }
         }
  
-          stage('Deploy to Docker Server') {
+          stage('Deploy to Server') {
             steps {
                 sshagent(credentials: ['ec2-server-key']) {
                     sh '''
                     ssh -tt -o StrictHostKeyChecking=no ubuntu@65.0.52.178 << EOF
-                    whoami
-                    docker --version
-                    docker compose version
                     rm -rf app
                     git clone https://github.com/gopinathbca35/react-node-mysql-app.git app
                     cd app
