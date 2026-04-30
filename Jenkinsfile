@@ -35,8 +35,6 @@ pipeline {
                     cd app
                     docker compose down || true
                     docker compose up -d --build
-                    docker exec -i mysql-db mysql -u root -proot123 booksdb < backend/db.sql
-                    docker restart backend-app
                     exit
                     EOF
                     '''
