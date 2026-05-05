@@ -30,8 +30,8 @@ pipeline {
         stage('Build Docker Images') {
             steps {
                 sh '''
-                docker build -t $REGISTRY/$IMAGE_BACKEND:latest -f backend/Dockerfile .
-                docker build -t $REGISTRY/$IMAGE_FRONTEND:latest -f frontend/Dockerfile .
+                docker build -t $REGISTRY/$IMAGE_BACKEND:latest -f backend/Dockerfile backend/
+                docker build -t $REGISTRY/$IMAGE_FRONTEND:latest -f frontend/Dockerfile frontend/
                 '''
             }
         }
