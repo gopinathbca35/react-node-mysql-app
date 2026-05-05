@@ -15,10 +15,12 @@ kind: Service
 metadata:
   name: mysql
 spec:
-  ports:
-    - port: 3306
   selector:
     app: mysql
+  ports:
+    - port: 3306
+      targetPort: 3306
+  clusterIP: None
 
 ---
 apiVersion: apps/v1
