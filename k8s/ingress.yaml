@@ -5,8 +5,7 @@ metadata:
 spec:
   ingressClassName: public
   rules:
-    - host: bookapp.local
-      http:
+    - http:
         paths:
           - path: /
             pathType: Prefix
