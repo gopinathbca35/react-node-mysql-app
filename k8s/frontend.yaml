@@ -3,12 +3,13 @@ kind: Service
 metadata:
   name: frontend
 spec:
+  type: NodePort
+  ports:
+    - port: 3000
+      targetPort: 3000
+      nodePort: 30008
   selector:
     app: frontend
-  ports:
-    - port: 80
-      targetPort: 3000
-  type: ClusterIP
 
 ---
 apiVersion: apps/v1
@@ -27,10 +28,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: gopinathbca35/app-frontend:latest
-          imagePullPolicy: Always
+          image: app-frontend:latest
+          imagePullPolicy: Never
           ports:
             - containerPort: 3000
-          env:
-            - name: REACT_APP_API_URL
-              value: "/api"
