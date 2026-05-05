@@ -27,7 +27,7 @@ spec:
     spec:
       containers:
         - name: backend
-          image: app-backend:latest
+          image: gopinathbca35/app-backend:latest
           imagePullPolicy: Always
           env:
             - name: DB_HOST
