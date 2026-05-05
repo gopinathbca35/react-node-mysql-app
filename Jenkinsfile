@@ -27,7 +27,7 @@ pipeline {
                 }
             }
         }
-        /*stage('Build Docker Images') {
+        stage('Build Docker Images') {
             steps {
                 sh '''
                 docker build -t $REGISTRY/$IMAGE_BACKEND:latest -f backend/Dockerfile backend/
@@ -50,9 +50,9 @@ pipeline {
                     '''
                 }
             }
-        }  */
+        } 
             
-        stage('Deploy to K8s') {
+        /*stage('Deploy to K8s') {
     steps {
         sshagent(credentials: ['ec2-server-key']) {
             sh '''
@@ -77,6 +77,6 @@ pipeline {
         }
     }
 }
- 
+ */
     }
 }
