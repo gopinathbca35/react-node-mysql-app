@@ -34,9 +34,9 @@ pipeline {
                 docker build -t $REGISTRY/$IMAGE_FRONTEND:latest -f frontend/Dockerfile frontend/
                 '''
             }
-        } */
+        }
 
-        stage('Push to Docker Hub') {
+       stage('Push to Docker Hub') {
             steps {
                 withCredentials([usernamePassword(
                     credentialsId: 'dockerhub-creds',
@@ -50,8 +50,8 @@ pipeline {
                     '''
                 }
             }
-        }
-
+        }  */
+            
         stage('Deploy to K8s') {
     steps {
         sshagent(credentials: ['ec2-server-key']) {
