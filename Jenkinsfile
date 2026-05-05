@@ -27,14 +27,14 @@ pipeline {
                 }
             }
         }
-        stage('Build Docker Images') {
+       // stage('Build Docker Images') {
             steps {
                 sh '''
                 docker build -t $REGISTRY/$IMAGE_BACKEND:latest -f backend/Dockerfile backend/
                 docker build -t $REGISTRY/$IMAGE_FRONTEND:latest -f frontend/Dockerfile frontend/
                 '''
             }
-        }
+        } //
 
         stage('Push to Docker Hub') {
             steps {
