@@ -4,6 +4,9 @@ pipeline {
     environment {
         DEPLOY_HOST = "65.0.52.178"
         DEPLOY_USER = "ubuntu"
+        REGISTRY = "gopinathbca35"
+        IMAGE_BACKEND = "app-backend"
+        IMAGE_FRONTEND = "app-frontend"
     }
  
     stages {
@@ -24,22 +27,56 @@ pipeline {
                 }
             }
         }
- 
-          stage('Deploy to Server') {
+        stage('Build Docker Images') {
             steps {
-                sshagent(credentials: ['ec2-server-key']) {
+                sh '''
+                docker build -t $REGISTRY/$IMAGE_BACKEND:latest -f backend/Dockerfile .
+                docker build -t $REGISTRY/$IMAGE_FRONTEND:latest -f frontend/Dockerfile .
+                '''
+            }
+        }
+
+        stage('Push to Docker Hub') {
+            steps {
+                withCredentials([usernamePassword(
+                    credentialsId: 'dockerhub-creds',
+                    usernameVariable: 'DOCKER_USER',
+                    passwordVariable: 'DOCKER_PASS'
+                )]) {
                     sh '''
-                    ssh -tt -o StrictHostKeyChecking=no ubuntu@65.0.52.178 << EOF
-                    rm -rf app
-                    git clone https://github.com/gopinathbca35/react-node-mysql-app.git app
-                    cd app
-                    docker compose down || true
-                    docker compose up -d --build
-                    exit
-                    EOF
+                    echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
+                    docker push $REGISTRY/$IMAGE_BACKEND:latest
+                    docker push $REGISTRY/$IMAGE_FRONTEND:latest
                     '''
                 }
             }
         }
+
+        stage('Deploy to K8s') {
+    steps {
+        sshagent(credentials: ['ec2-server-key']) {
+            sh '''
+            ssh -tt -o StrictHostKeyChecking=no ubuntu@65.0.52.178 << EOF
+ 
+            rm -rf app
+            git clone https://github.com/gopinathbca35/react-node-mysql-app.git app
+            cd app/k8s
+ 
+            # Apply all YAML files
+            microk8s kubectl apply -f mysql.yaml
+            microk8s kubectl apply -f backend.yaml
+            microk8s kubectl apply -f frontend.yaml
+ 
+            # Check rollout status
+            microk8s kubectl rollout status deployment backend
+            microk8s kubectl rollout status deployment frontend
+ 
+            exit
+            EOF
+            '''
+        }
+    }
+}
+ 
     }
 }
