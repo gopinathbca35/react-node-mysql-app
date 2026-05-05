@@ -3,12 +3,14 @@ kind: Service
 metadata:
   name: backend
 spec:
-  selector:
-    app: backend
+  type: NodePort
   ports:
     - port: 3200
       targetPort: 3200
-  type: ClusterIP
+      nodePort: 30007
+  selector:
+    app: backend
+
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -26,10 +28,8 @@ spec:
     spec:
       containers:
         - name: backend
-          image: gopinathbca35/app-backend:latest
-          imagePullPolicy: Always
-          ports:
-            - containerPort: 3200
+          image: app-backend:latest
+          imagePullPolicy: Never
           env:
             - name: DB_HOST
               value: mysql
@@ -39,3 +39,5 @@ spec:
               value: root123
             - name: DB_NAME
               value: booksdb
+          ports:
+            - containerPort: 3200
