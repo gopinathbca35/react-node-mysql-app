@@ -28,8 +28,8 @@ spec:
     spec:
       containers:
         - name: backend
-          image: app-backend:latest
-          imagePullPolicy: Never
+          image: gopinathbca35/app-backend:latest
+          imagePullPolicy: Always
           env:
             - name: DB_HOST
               value: mysql
