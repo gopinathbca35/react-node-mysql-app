@@ -27,7 +27,7 @@ pipeline {
                 }
             }
         }
-        stage('Build Docker Images') {
+        /*stage('Build Docker Images') {
             steps {
                 sh '''
                 docker build -t $REGISTRY/$IMAGE_BACKEND:latest -f backend/Dockerfile backend/
@@ -50,7 +50,7 @@ pipeline {
                     '''
                 }
             }
-        } 
+        } */
          
        stage('Deploy to K8s') {
             steps {
