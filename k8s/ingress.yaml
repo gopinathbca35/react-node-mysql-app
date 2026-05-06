@@ -8,6 +8,13 @@ spec:
     - host: bookapp.local
       http:
         paths:
+          - path: /api
+            pathType: Prefix
+            backend:
+              service:
+                name: backend
+                port:
+                  number: 3200        
           - path: /
             pathType: Prefix
             backend:
@@ -15,10 +22,4 @@ spec:
                 name: frontend
                 port:
                   number: 3000
-          - path: /api
-            pathType: Prefix
-            backend:
-              service:
-                name: backend
-                port:
-                  number: 3200
+
