@@ -32,11 +32,10 @@ kind: Service
 metadata:
   name: backend
 spec:
-  type: NodePort
+  type: ClusterIP
   ports:
     - port: 3200
       targetPort: 3200
-      nodePort: 30007
   selector:
     app: backend
 - containerPort: 3200
