@@ -1,7 +1,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: app-ingress
+  name: book-app-ingress
 spec:
   ingressClassName: public
   rules:
@@ -13,7 +13,7 @@ spec:
               service:
                 name: frontend
                 port:
-                  number: 80
+                  number: 3000
           - path: /api
             pathType: Prefix
             backend:
