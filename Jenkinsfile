@@ -27,7 +27,7 @@ pipeline {
                 }
             }
         }
-        stage('Build Docker Images') {
+        /*stage('Build Docker Images') {
             steps {
                 sh '''
                 docker build -t $REGISTRY/$IMAGE_BACKEND:latest -f backend/Dockerfile backend/
@@ -51,11 +51,11 @@ pipeline {
                 }
             }
         } 
-            
-        /*stage('Deploy to K8s') {
-    steps {
-        sshagent(credentials: ['ec2-server-key']) {
-            sh '''
+          */  
+       stage('Deploy to K8s') {
+            steps {
+               sshagent(credentials: ['ec2-server-key']) {
+                  sh '''
             ssh -tt -o StrictHostKeyChecking=no ubuntu@65.0.52.178 << EOF
  
             rm -rf app
@@ -78,6 +78,5 @@ pipeline {
         }
     }
 }
- */
     }
 }
