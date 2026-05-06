@@ -66,6 +66,7 @@ pipeline {
             microk8s kubectl apply -f mysql.yaml
             microk8s kubectl apply -f backend.yaml
             microk8s kubectl apply -f frontend.yaml
+            microk8s kubectl apply -f ingress.yaml
  
             # Check rollout status
             microk8s kubectl rollout status deployment backend
