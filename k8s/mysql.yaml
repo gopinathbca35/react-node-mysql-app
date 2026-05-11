@@ -28,6 +28,8 @@ spec:
       volumes:
         - name: mysql-storage
           persistentVolumeClaim:
+            claimName: mysql-pvc
+
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -38,7 +40,8 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 1GiclaimName: mysql-pvc
+      storage: 1Gi
+
 ---
 apiVersion: v1
 kind: Service
@@ -49,4 +52,3 @@ spec:
     - port: 3306
   selector:
     app: mysql
-
