@@ -1,0 +1,4 @@
+resources:
+  - k8s/frontend/
+  - k8s/backend/
+  - k8s/database/
