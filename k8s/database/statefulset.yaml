@@ -31,6 +31,7 @@ spec:
     - metadata:
         name: mysql-storage
       spec:
+        storageClassName: gp2
         accessModes:
           - ReadWriteOnce
         resources:
